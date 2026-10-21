@@ -49,42 +49,21 @@ Replace the paragraph if you want to change the tagline.
 
 ### 2. Contact Information
 In `index.html`, search for `<!-- TODO: replace contact -->`:
-- **Email**: Update `hello@crizgen.com` and its `href="mailto:..."`
-- **Phone**: Update `+91 00000 00000` and its `href="tel:..."`
-- **WhatsApp**: Update the number in both WhatsApp buttons' `https://wa.me/` links. This official click-to-chat link opens the app when supported or offers WhatsApp Web:
+- **Email**: `crizgen2026@gmail.com` (`href="mailto:crizgen2026@gmail.com"`)
+- **Address**: `No. 29/14, 15th Street, Padi Puthu Nagar, Anna Nagar West Extension, Chennai - 600101`
+- **Phone**: `+91 90926 56327` (`href="tel:+919092656327"`)
+- **WhatsApp**: Configured to `+91 90926 56327` via `https://wa.me/919092656327`. This official click-to-chat link opens the app when supported or offers WhatsApp Web:
   ```html
-  href="https://wa.me/910000000000?text=Hello%20Crizgen..."
+  href="https://wa.me/919092656327?text=Hello%20Crizgen..."
   ```
-  *(Replace `910000000000` with your country code and WhatsApp phone number without spaces or symbols)*.
 
 ---
 
-## ✉️ Setting Up the Contact Form Endpoint
+## ✉️ Setting Up the Contact Form (Web3Forms)
 
-The contact form is configured to work out-of-the-box with **Formspree** or **Web3Forms** without needing a backend server:
-
-### Option A: Using Formspree (Recommended)
-1. Sign up for a free account at [https://formspree.io](https://formspree.io).
-2. Create a new form and copy your unique Form ID (e.g., `xpznkloa`).
-3. In `index.html`, replace:
-   ```html
-   <!-- TODO: Replace with your Formspree endpoint (e.g. https://formspree.io/f/your_form_id) or Web3Forms access key -->
-   <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-   ```
-   with:
-   ```html
-   <form id="contactForm" action="https://formspree.io/f/xpznkloa" method="POST" novalidate>
-   ```
-
-### Option B: Using Web3Forms
-1. Generate an access key at [https://web3forms.com](https://web3forms.com).
-2. Set `action="https://api.web3forms.com/submit"`.
-3. Add a hidden input inside `<form>`:
-   ```html
-   <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-   ```
-
-*(Note: When `YOUR_FORM_ID` is present, `script.js` runs in demo mode, simulating successful submissions for safe previewing).*
+The contact form is connected to **Web3Forms** so inquiries are emailed directly to `crizgen2026@gmail.com`:
+- Form submissions are automatically protected by a hidden honeypot (`botcheck`) and include the subject `"New Crixgen Project Inquiry"`.
+- Configured with your Web3Forms access key in `script.js` and `index.html`.
 
 ---
 

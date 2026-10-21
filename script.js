@@ -3,6 +3,12 @@
  * Plain Vanilla JavaScript - No frameworks, zero external dependencies
  */
 
+// =========================================================================
+// WEB3FORMS ACCESS KEY CONFIGURATION
+// Replace 'YOUR_ACCESS_KEY' with your Web3Forms access key from https://web3forms.com
+// =========================================================================
+const WEB3FORMS_ACCESS_KEY = 'a36a7bc4-94f9-43da-9a90-aef23a661abf';
+
 (function () {
   'use strict';
 
@@ -231,7 +237,7 @@
   }
 
   // =========================================================================
-  // 5. CONTACT FORM VALIDATION & SUBMISSION
+  // 5. CONTACT FORM (Web3Forms JSON Submission & Validation)
   // =========================================================================
   const contactForm = document.getElementById('contactForm');
   const userName = document.getElementById('userName');
@@ -242,6 +248,8 @@
   const messageError = document.getElementById('messageError');
   const formStatus = document.getElementById('formStatus');
   const submitBtn = document.getElementById('submitBtn');
+  const submitBtnText = submitBtn ? submitBtn.querySelector('.btn-text') : null;
+  const originalBtnText = submitBtnText ? submitBtnText.textContent.trim() : 'Submit Project Inquiry';
 
   function clearErrors() {
     if (nameError) nameError.textContent = '';
@@ -297,6 +305,27 @@
     return isValid;
   }
 
+  function setButtonSending(isSending) {
+    if (!submitBtn) return;
+    if (isSending) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('loading');
+      if (submitBtnText) {
+        submitBtnText.textContent = 'Sending...';
+      } else {
+        submitBtn.textContent = 'Sending...';
+      }
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('loading');
+      if (submitBtnText) {
+        submitBtnText.textContent = originalBtnText;
+      } else {
+        submitBtn.textContent = originalBtnText;
+      }
+    }
+  }
+
   if (contactForm) {
     contactForm.addEventListener('submit', async function (e) {
       e.preventDefault();
@@ -305,60 +334,60 @@
         return;
       }
 
-      const formAction = contactForm.getAttribute('action');
-      const isPlaceholderEndpoint =
-        !formAction ||
-        formAction.includes('YOUR_FORM_ID') ||
-        formAction.includes('your_form_id');
+      // UX: While sending, disable the button and change its text to "Sending..."
+      setButtonSending(true);
 
-      // Loading state
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
+      // Prepare form data as an object
+      const formData = new FormData(contactForm);
+      const payload = Object.fromEntries(formData);
+
+      // Resolve access key from constant (top of script) or hidden form input
+      const accessKeyInput = contactForm.querySelector('input[name="access_key"]');
+      const resolvedKey =
+        WEB3FORMS_ACCESS_KEY && WEB3FORMS_ACCESS_KEY !== 'YOUR_ACCESS_KEY'
+          ? WEB3FORMS_ACCESS_KEY
+          : (accessKeyInput && accessKeyInput.value ? accessKeyInput.value : WEB3FORMS_ACCESS_KEY);
+
+      payload.access_key = resolvedKey;
+
+      // Handle honeypot botcheck checkbox: remove if not filled/checked
+      if (contactForm.botcheck && !contactForm.botcheck.checked) {
+        delete payload.botcheck;
+      }
 
       try {
-        if (isPlaceholderEndpoint) {
-          // Simulated submission when user hasn't yet hooked up Formspree endpoint
-          await new Promise(function (resolve) {
-            setTimeout(resolve, 800);
-          });
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
 
+        const data = await response.json().catch(function () {
+          return {};
+        });
+
+        if (response.status === 200 && data.success) {
+          // On success, show a green message under the form ("Thanks! We'll get back to you soon.") and reset the form
           formStatus.className = 'form-status success';
-          formStatus.innerHTML = `<strong>Thank you, ${userName.value.trim()}!</strong> Your project inquiry has been recorded. <em>(Form endpoint is in demo mode: please replace YOUR_FORM_ID in index.html with your Formspree/Web3Forms endpoint to receive emails.)</em>`;
+          formStatus.textContent = "Thanks! We'll get back to you soon.";
           contactForm.reset();
+          setButtonSending(false);
         } else {
-          // Live submission to Formspree / Web3Forms
-          const formData = new FormData(contactForm);
-          const response = await fetch(formAction, {
-            method: 'POST',
-            body: formData,
-            headers: {
-              Accept: 'application/json',
-            },
-          });
-
-          if (response.ok) {
-            formStatus.className = 'form-status success';
-            formStatus.textContent =
-              'Thank you! Your inquiry has been sent successfully. Our team will contact you within 24 hours.';
-            contactForm.reset();
-          } else {
-            const data = await response.json().catch(function () {
-              return {};
-            });
-            formStatus.className = 'form-status error';
-            formStatus.textContent =
-              data.error ||
-              'Unable to send inquiry at this time. Please email us directly at hello@crizgen.com.';
-          }
+          // On failure, show a red error message and re-enable the button
+          formStatus.className = 'form-status error';
+          formStatus.textContent =
+            data.message || 'Unable to submit your inquiry at this time. Please check your details and try again.';
+          setButtonSending(false);
         }
       } catch (err) {
-        console.error('Form submission error:', err);
+        // On network error, show a red error message and re-enable the button
+        console.error('Web3Forms submission error:', err);
         formStatus.className = 'form-status error';
-        formStatus.textContent =
-          'Network connection error. Please try again or email us directly at hello@crizgen.com.';
-      } finally {
-        submitBtn.classList.remove('loading');
-        submitBtn.disabled = false;
+        formStatus.textContent = 'Network error. Please check your connection and try again.';
+        setButtonSending(false);
       }
     });
 

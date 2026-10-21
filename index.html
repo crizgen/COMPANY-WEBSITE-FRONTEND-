@@ -591,7 +591,7 @@
                 <div class="detail-text">
                   <span class="detail-label">Email Us</span>
                   <!-- TODO: replace contact -->
-                  <a href="mailto:hello@crizgen.com" class="detail-link">hello@crizgen.com</a>
+                  <a href="mailto:crizgen2026@gmail.com" class="detail-link">crizgen2026@gmail.com</a>
                   <!-- /TODO: replace contact -->
                 </div>
               </div>
@@ -608,9 +608,8 @@
                 </div>
                 <div class="detail-text">
                   <span class="detail-label">Call Us</span>
-                  <!-- TODO: replace contact -->
-                  <a href="tel:+910000000000" class="detail-link">+91 00000 00000</a>
-                  <!-- /TODO: replace contact -->
+                  <!-- Contact Phone -->
+                  <a href="tel:+919092656327" class="detail-link">+91 90926 56327</a>
                 </div>
               </div>
 
@@ -624,8 +623,9 @@
                   </svg>
                 </div>
                 <div class="detail-text">
-                  <span class="detail-label">Location</span>
-                  <span class="detail-plain">Chennai, Tamil Nadu, India</span>
+                  <span class="detail-label">Office Address</span>
+                  <span class="detail-plain">No. 29/14, 15th Street, Padi Puthu Nagar, Anna Nagar West Extension,
+                    Chennai - 600101, Tamil Nadu, India</span>
                 </div>
               </div>
 
@@ -635,9 +635,9 @@
             <div class="whatsapp-direct-box">
               <span class="whatsapp-badge-label">Instant Messaging</span>
               <!-- TODO: replace contact -->
-              <a href="https://wa.me/919025865730?text=Hi%20Crizgen,%20I'd%20like%20to%20discuss%20a%20new%20project."
-                target="_blank" rel="noopener noreferrer"
-                class="btn btn-whatsapp-direct" aria-label="Chat directly on WhatsApp">
+              <a href="https://wa.me/919092656327?text=Hi%20Crizgen,%20I'd%20like%20to%20discuss%20a%20new%20project."
+                target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp-direct"
+                aria-label="Chat directly on WhatsApp">
                 <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
                   <path
                     d="M17.472 14.382c-.301-.15-1.782-.879-2.058-.98-.276-.1-.476-.15-.677.15-.2.301-.777.98-.952 1.18-.175.2-.351.226-.652.075s-1.272-.469-2.424-1.496c-.896-.799-1.501-1.786-1.677-2.087-.175-.301-.019-.464.132-.614.135-.135.301-.351.451-.527.15-.176.2-.301.301-.501.1-.2.05-.376-.025-.526s-.677-1.631-.928-2.235c-.244-.588-.493-.508-.677-.518-.175-.008-.376-.01-.577-.01s-.526.075-.802.376c-.276.301-1.053 1.028-1.053 2.508s1.078 2.909 1.228 3.11c.15.2 2.122 3.24 5.141 4.544.718.31 1.279.496 1.716.635.721.23 1.378.197 1.9.12.581-.087 1.782-.727 2.032-1.429.25-.701.25-1.303.175-1.429-.075-.125-.276-.2-.577-.35zM12.04 2C6.516 2 2.028 6.488 2.028 12.012c0 1.986.58 3.844 1.583 5.412L2 22l4.733-1.554c1.513.882 3.27 1.385 5.144 1.385 5.524 0 10.012-4.488 10.012-10.012S17.564 2 12.04 2zm0 18.232c-1.636 0-3.17-.487-4.46-1.325l-.32-.207-2.809.923.938-2.738-.227-.337a8.21 8.21 0 0 1-1.353-4.536c0-4.543 3.696-8.24 8.231-8.24 4.536 0 8.232 3.697 8.232 8.24 0 4.544-3.696 8.24-8.232 8.24z" />
@@ -653,8 +653,14 @@
             <h3 class="panel-title">Send a Message</h3>
             <p class="panel-desc">Fill out the form below and we will prepare a tailored proposal for your review.</p>
 
-            <!-- TODO: Replace with your Formspree endpoint (e.g. https://formspree.io/f/your_form_id) or Web3Forms access key -->
-            <form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
+            <!-- Web3Forms Contact Form -->
+            <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" novalidate>
+
+              <!-- Web3Forms Hidden Configuration Inputs & Anti-Spam Honeypot -->
+              <input type="hidden" name="access_key" value="a36a7bc4-94f9-43da-9a90-aef23a661abf">
+              <input type="hidden" name="subject" value="New Crixgen Project Inquiry">
+              <input type="checkbox" name="botcheck" id="botcheck" style="display: none;" tabindex="-1"
+                autocomplete="off">
 
               <!-- Name Input -->
               <div class="form-group">
@@ -676,7 +682,7 @@
               <div class="form-group">
                 <label for="userService" class="form-label">Service Needed</label>
                 <select id="userService" name="service" class="form-select">
-                  <option value="Web Development">Web Development</option>
+                  <option value="Web Development" selected>Web Development</option>
                   <option value="Mobile App Development">Mobile App Development</option>
                   <option value="UI/UX Design">UI/UX Design</option>
                   <option value="Full-Stack Package">Full-Stack Package (Web + Mobile + Design)</option>
@@ -692,16 +698,15 @@
                 <span class="field-error" id="messageError" aria-live="polite"></span>
               </div>
 
-              <!-- Submission Notice / Feedback Container -->
-              <div id="formStatus" class="form-status" aria-live="polite"></div>
-
               <!-- Submit Button -->
               <button type="submit" id="submitBtn" class="btn btn-primary btn-block">
                 <span class="btn-text">Submit Project Inquiry</span>
                 <span class="btn-spinner" aria-hidden="true"></span>
               </button>
+
+              <!-- Submission Notice / Feedback Container -->
+              <div id="formStatus" class="form-status" aria-live="polite"></div>
             </form>
-            <!-- /TODO: Replace with your Formspree endpoint -->
 
           </div>
 
@@ -734,7 +739,7 @@
         </p>
         <div class="footer-hq">
           <span class="hq-pin" aria-hidden="true">📍</span>
-          <span>Chennai, Tamil Nadu, India</span>
+          <span>No. 29/14, 15th Street, Padi Puthu Nagar, Anna Nagar West Extension, Chennai - 600101</span>
         </div>
       </div>
 
@@ -836,9 +841,9 @@
        FLOATING WHATSAPP BUTTON
        ========================================================= -->
   <!-- TODO: replace contact -->
-  <a href="https://wa.me/919025865730?text=Hello%20Crizgen,%20I'm%20interested%20in%20discussing%20a%20project."
-    target="_blank" rel="noopener noreferrer"
-    class="floating-whatsapp-btn" id="floatingWhatsApp" aria-label="Chat with Crizgen on WhatsApp">
+  <a href="https://wa.me/919092656327?text=Hello%20Crizgen,%20I'm%20interested%20in%20discussing%20a%20project."
+    target="_blank" rel="noopener noreferrer" class="floating-whatsapp-btn" id="floatingWhatsApp"
+    aria-label="Chat with Crizgen on WhatsApp">
     <span class="whatsapp-tooltip">Chat with us</span>
     <span class="whatsapp-pulse-ring" aria-hidden="true"></span>
     <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">

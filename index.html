@@ -41,10 +41,13 @@
     rel="stylesheet">
 
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=2">
 </head>
 
 <body>
+  <!-- Galaxy Background Canvas Component -->
+  <canvas id="galaxy-bg-canvas" class="galaxy-bg-canvas" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; display: block;"></canvas>
+
   <!-- Accessibility Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
 
@@ -853,7 +856,8 @@
   </a>
   <!-- /TODO: replace contact -->
 
-  <!-- JavaScript Bundle -->
+  <!-- JavaScript Bundle & Background Component -->
+  <script src="galaxy-background.js"></script>
   <script src="script.js"></script>
 </body>
 

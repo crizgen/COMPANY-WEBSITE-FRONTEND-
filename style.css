@@ -109,17 +109,35 @@ html {
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--navbar-height) + 16px);
   -webkit-text-size-adjust: 100%;
+  background-color: var(--bg-body);
 }
 
 body {
   font-family: var(--font-family);
-  background-color: var(--bg-body);
+  background-color: transparent !important;
   color: var(--text-primary);
   line-height: 1.6;
   font-weight: 400;
   overflow-x: hidden;
   width: 100%;
-  transition: background-color var(--transition-slow), color var(--transition-slow);
+  min-height: 100vh;
+  transition: color var(--transition-slow);
+}
+
+/* ==========================================================================
+   GALAXY BACKGROUND CANVAS COMPONENT
+   Fixed full-page canvas behind all content
+   ========================================================================== */
+.galaxy-bg-canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  display: block !important;
 }
 
 /* Accessibility: Skip Link */

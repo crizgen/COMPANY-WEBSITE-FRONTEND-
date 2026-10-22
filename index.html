@@ -42,11 +42,24 @@
 
   <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css?v=2">
+
+  <!-- Vercel Web Analytics -->
+  <script>
+    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/insights/script.js"></script>
+
+  <!-- Vercel Speed Insights -->
+  <script>
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
 </head>
 
 <body>
   <!-- Galaxy Background Canvas Component -->
-  <canvas id="galaxy-bg-canvas" class="galaxy-bg-canvas" aria-hidden="true" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; display: block;"></canvas>
+  <canvas id="galaxy-bg-canvas" class="galaxy-bg-canvas" aria-hidden="true"
+    style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; display: block;"></canvas>
 
   <!-- Accessibility Skip Link -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -786,7 +799,8 @@
           </a>
 
           <!-- LinkedIn -->
-          <a href="https://www.linkedin.com/in/crizgen-technologies-957a34445/" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+          <a href="https://www.linkedin.com/in/crizgen-technologies-957a34445/" target="_blank"
+            rel="noopener noreferrer" class="social-icon-btn"
             aria-label="Crizgen Technologies LinkedIn profile (opens in new tab)">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
               <path
